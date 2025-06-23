@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { useProductContext } from './Context/ProductContext';
+import { useProductContext } from './Context/ProductContext';
 
 const Product = ({ id, ProductName, ProductPrice, ProductInfo1, Discount, image }) => {
-    // const { base_url, public_url } = useProductContext();
+    const { base_url, public_url } = useProductContext();
     return (
         <div className="col-lg-4 col-md-6 col-sm-12 mb-3 product-details-body">
             <Link to={`/singleproduct/${id}`}>
                 <div className=" h-100 border-solid-voilet p-2 rounded-3">
                     <div className="position-relative">
-                        {/* <img src={`${base_url}${public_url}/${image}`} alt={ProductName} className="card-img-top product-img" /> */}
-                        <img src={image} alt={ProductName} className="card-img-top product-img" />
+                        <img src={`${base_url}${public_url}/${image}`} alt={ProductName} className="card-img-top product-img" />
                     </div>
                     <div className="card-body text-center py-2">
                         <h5 className="text-dark font-15 mb-2">{ProductName}</h5>
