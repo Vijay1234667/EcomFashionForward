@@ -1,0 +1,53 @@
+
+.add-to-carts-featured-products-sizes-btn ul li {
+  margin-right: 6px;
+}
+.QuantitySection .btn{
+  background-color: black;
+  border: 1px solid black;
+  outline: 1px solid black;
+  padding: 3px 13px;
+  border-radius: 0px;
+  color: white;
+  outline-offset: 2px;
+}
+.add-to-carts-featured-products-sizes-btn .btn {
+  display: flex;
+  border-radius: 0px;
+  margin-right: 4px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  outline: 1px solid black;
+  outline-offset: 1px;
+  color: black;
+}
+.add-to-carts-featured-products-sizes-btn .btn:hover {
+  background-color: black;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+
+.add-to-carts-featured-products-add-tobag-whishlist-btn .btn {
+  background-color: rgb(228, 81, 36);
+  outline-offset: 2px;
+  outline: 2px solid black;
+  color: white;
+  font-size: 15px;
+  text-transform: uppercase;
+  border-radius: 0px;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+}
+.add-to-carts-featured-products-add-tobag-whishlist-btn .btn:hover {
+  background-color: white;
+  color: black;
+  transition: 0.2s ease-in-out;
+}
+.choose-color a {
+  width: 35px;
+  height: 30px;
+  border-radius: 0%;
+  margin-right: 6px;
+}

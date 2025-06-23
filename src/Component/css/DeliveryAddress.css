@@ -1,0 +1,60 @@
+
+.Delivery-Address-Section {
+    padding: 20px 0px 20px;
+}
+.Delivery-Address-Section h1 {
+    font-weight: 600;
+    font-size: 30px;
+    color: rgb(101, 139);
+}
+
+.form-body-content label {
+    font-size: 16px;
+    color: black;
+    font-weight: 500;
+}
+
+
+.form-body-content input {
+    padding: 8px 10px;
+    border-radius: 9px;
+}
+
+.Delivery-Address-Section .Google-btn {
+    background-color: black;
+    color: white;
+    width: 100%;
+    font-weight: 500;
+    border-radius: 9px;
+    font-size: 16px;
+    padding: 9px 0px 9px;
+}
+
+.Delivery-Address-Section .Google-btn:hover {
+    background-color: rgb(59, 114, 252);
+    color: white;
+}
+
+.shadow-section {
+    box-shadow: 1px 0px 7px #f1f5f9;
+    border-radius: 15px;
+    background-color: white;
+    border: 2px solid #f1f5f9;
+    box-shadow: 0 .125rem .25rem rgba(2, 6, 23, .075) !important;
+}
+
+.delivery-absoluteimg {
+    position: absolute;
+    top: 30%;
+    right: 50px;
+    opacity: 60%;
+    transform: rotate(-10deg);
+}
+
+.delivery-absoluteimgleft {
+    position: absolute;
+    top: 60%;
+    left: 50px;
+    opacity: 60%;
+    transform: rotate(10deg);
+}

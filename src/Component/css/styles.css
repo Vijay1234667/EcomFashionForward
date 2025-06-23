@@ -1,0 +1,13 @@
+
+
+.mySwiper img{
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  height: 150px;
+}
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}

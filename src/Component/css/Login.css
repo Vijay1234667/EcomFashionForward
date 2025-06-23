@@ -1,0 +1,39 @@
+.Login-Page-Section {
+    font-size: 14px; 
+    background: linear-gradient(135deg, #f0f4f7, #c9e4f6);
+    border-radius: 12px;
+    height: 100vh;
+}
+
+.Login-Page-Section .container > .row > .col-md-6,
+.Login-Page-Section .container > .row > .col-md-5 {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-body-content input {
+    padding: 10px 12px;
+    border: 1px solid green;
+    border-radius: 8px !important;
+    font-size: 14px;
+}
+
+/* Sign-in button */
+.Login-Page-Section .sign-btn {
+    background: linear-gradient(90deg, #1877f2, #4e9dfc);
+    border-radius: 12px;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.Login-Page-Section .sign-btn:hover {
+    background: linear-gradient(90deg, #145dbf, #357edd);
+}
+
+/* Social buttons consistent rounded */
+.Login-Page-Section .Google-btn,
+.Login-Page-Section .Facebook-btn {
+    border-radius: 12px;
+}
