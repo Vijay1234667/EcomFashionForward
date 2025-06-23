@@ -4,7 +4,7 @@ import { useState } from "react";
 import { createContext, useContext, useEffect, useReducer } from "react";
 
 const AppContext = createContext();
-const API = "http://localhost:3001/cardata";
+const API = "/db.json";
 const initialState = {
     isLoading: false,
     isError: false,

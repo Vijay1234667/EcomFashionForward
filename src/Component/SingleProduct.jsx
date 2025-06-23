@@ -8,7 +8,7 @@ import './css/AddToCart.css';
 import { Col, Container } from 'react-bootstrap-v5';
 import BreadcrumbFixedTop from './BreadcrumbFixedTop';
 
-const API = 'http://localhost:3001/cardata';
+const API = '/db.json';
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
