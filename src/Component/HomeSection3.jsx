@@ -1,40 +1,39 @@
-import React, { useEffect, useState } from 'react'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import './css/Home.css';
-import { Container } from 'react-bootstrap-v5';
-
-import Typed from "typed.js";
+import React from 'react'
+import HomeBannerimg4 from "./assets/HomeBannerimg4.jpg"
+import HomeBannerimg5 from "./assets/HomeBannerimg5.jpg"
+import HomeBannerimg6 from "./assets/HomeBannerimg6.png"
+import { Container } from 'react-bootstrap-v5'
+import { Row } from 'react-bootstrap'
 
 const HomeSection3 = () => {
-    useEffect(() => {
-        const options = {
-          strings: ["Sunglasses", "Bag", "Watch", "Shoes"],
-          typeSpeed: 180,
-          backSpeed: 180,
-          loop: true,
-        };
-        const typed = new Typed(".auto-type-textSale1", options);
-    
-        return () => {
-          typed.destroy();
-        };
-      }, []);
-
     return (
         <>
-            <section className="Limited-offers-section mt-5 mb-5">
-                <Container>
-                    <div className="">
-                        <div className='text-center text-white'>
-                            <h2 className='mb-4 font-24'>End of Season <span className='auto-type-textSale1 text-bg-danger'></span>
-                                <span className='d-md-block'>Sale upto 30%</span></h2>
-                            <a href="/" className='btn local-btn'> <AddShoppingCartIcon className='me-1' />Shop Now</a>
+            <section className='mb-5'>
+                <Container fluid className='p-0'>
+                    <Row className="g-0 p-0 align-items-baseline">
+                        <div className="col-lg-6 col-md-12 mb-md-3 mb-1">
+                            <div className="row align-items-baseline g-0">
+                                <div className="col-md-6 col-6">
+                                    <div className='flashimagelight'>
+                                        <img src={HomeBannerimg4} className='img-fluid' alt="" />
+                                    </div>
+                                </div>
+                                <div className="col-md-6 col-6">
+                                    <div className='flashimagelight'>
+                                        <img src={HomeBannerimg5} className='img-fluid' alt="" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
+                        <div className="col-lg-6 col-12">
+                            <div className='flashimagelight'>
+                                <img src={HomeBannerimg6} className='img-fluid' alt="" />
+                            </div>
+                        </div>
+                    </Row>
                 </Container>
-
-            </section>
+            </section >
         </>
     )
 }

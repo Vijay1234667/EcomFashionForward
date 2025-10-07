@@ -16,11 +16,11 @@ const Col3Product = ({ id, ProductName, ProductPrice, ProductInfo1, Discount, im
                         <img src={`${base_url}${public_url}/${image}`} alt={ProductName} className="card-img-top product-img" />
                     </div>
                     <div className="card-body text-center py-2">
-                        <h5 className="text-dark font-15 mb-2">{ProductName}</h5>
-                        <p className=" text-muted font-13 mb-2">{ProductInfo1}</p>
+                        <h5 className="product-name">{ProductName}</h5>
+                        <p className=" product-info">{ProductInfo1}</p>
                         <div className="d-flex justify-content-between align-items-center">
-                            <span className=" font-18 fw-600">&#8377;{ProductPrice}</span>
-                            <span className="text-dark font-14 fw-500">{Discount}</span>
+                            <span className=" product-price">&#8377;{ProductPrice}</span>
+                            <span className="product-discount">{Discount}</span>
                         </div>
                         <button className=" mt-3 w-100 font-14 bg-black text-white py-2 rounded">Add to Cart</button>
                     </div>

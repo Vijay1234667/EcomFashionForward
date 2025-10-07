@@ -7,9 +7,6 @@ import FilterBreadcrumb from './FilterBreadcrumb';
 const CategorySingle = () => {
 
     const { allproduct } = useProductContext();
-    console.log(allproduct, "all p")
-
-
     return (
         <>
             <section>
@@ -23,9 +20,7 @@ const CategorySingle = () => {
                             })
                         }
                     </div>
-                    <div>
-                        <h6>mens wear</h6>
-                    </div>
+                 
 
                 </Container>
 

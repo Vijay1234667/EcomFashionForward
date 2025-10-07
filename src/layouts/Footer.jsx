@@ -12,9 +12,11 @@ import EcomLogo1 from '../Component/assets/EcomLogo1.png';
 import BlogsRightImg8 from '../Component/assets/BlogsRightImg8.jpg'
 import BlogsRightImg10 from '../Component/assets/BlogsRightImg10.jpg'
 import FooterPayment from '../Component/assets/FooterPayment.png'
-
-
-function FooterPage() {
+import CheckIcon from '@mui/icons-material/Check';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import SupportIcon from '@mui/icons-material/Support';
+import HelpIcon from '@mui/icons-material/Help';function FooterPage() {
 
     const { pathname } = useLocation();
     if (pathname === "/paymentform") return null
@@ -22,7 +24,7 @@ function FooterPage() {
         return (
             <>
                 <footer className="footer-section">
-                    <Container>
+                    <Container fluid="md">
                         <div className="row footer-top">
                             <div className="col-lg-3 col-md-6">
                                 <div className="footer-left-sec">
@@ -32,10 +34,10 @@ function FooterPage() {
                                         Consectetur adipisicing elit. Laudantium fugit, sunt tenetur quid.
                                     </p>
                                     <div className="left-socials-icons text-center mb-4 md-mb-0">
-                                        <a href=""><FacebookOutlinedIcon className="fs-2 text-primary" /></a>
-                                        <a href="/"><TwitterIcon className="fs-2 text-success" /></a>
-                                        <a href="/"><LinkedInIcon className="fs-2 text-info" /></a>
-                                        <a href="/"><InstagramIcon className="fs-2 text-danger" /></a>
+                                        <a href=""><FacebookOutlinedIcon className="fs-5 text-primary" /></a>
+                                        <a href="/"><TwitterIcon className="fs-5 text-success" /></a>
+                                        <a href="/"><LinkedInIcon className="fs-5 text-info" /></a>
+                                        <a href="/"><InstagramIcon className="fs-5 text-danger" /></a>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +73,7 @@ function FooterPage() {
                                                 <Link className="nav-link" to="profile">PROFILE</Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className="nav-link" to="projects">OUR PROJECT</Link>
+                                                <Link className="nav-link" to="/">OUR PROJECT</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -114,38 +116,38 @@ function FooterPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="footer-delevery-process text-white text-center">
+                        <div className="footer-delevery-process text-white text-center border-top border-1 border-secondary pt-3 pb-3 mb-3">
                             <div className="row justify-content-center">
                                 <div className="col-lg-2 col-md-6 col-6 mb-3 mb-md-0">
                                     <h6>Fast & Secure Delivery</h6>
                                     <p>
-                                        Tell about your service.
+                                        <CheckIcon className="fs-5 me-1 text-success"/>Tell about your service.
                                     </p>
                                 </div>
                                 <div className="col-lg-2 col-md-6 col-6">
                                     <h6>Money Back Guarantee</h6>
                                     <p>
-                                        Within 10 days. </p>
+                                       <AccessTimeIcon  className="fs-5 me-1 text-danger"/> Within 10 days. </p>
                                 </div>
 
                                 <div className="col-lg-2 col-md-6 col-6">
                                     <h6>24 Hour Return Policy</h6>
                                     <p>
-                                        No question ask.
+                                      <ContactSupportIcon className="fs-5 me-1 text-primary"/>  No question ask.
                                     </p>
                                 </div>
                                 <div className="col-lg-2 col-md-6 col-6">
                                     <h6>
                                         Pro Quality Support</h6>
                                     <p>
-                                        24/7 Live support.
+                                       <SupportIcon className="fs-5 me-1 text-info"/> 24/7 Live support.
                                     </p>
                                 </div>
                                 <div className="col-lg-2 col-md-6 col-6">
                                     <i className="fa-solid fa-lock fs-5 mb-2"></i>
                                     <h6>Secure Checkout</h6>
                                     <p className="mb-0">
-                                        full Guarantee
+                                        <HelpIcon  className="fs-5 me-1 text-white" />full Guarantee
                                     </p>
                                 </div>
                             </div>

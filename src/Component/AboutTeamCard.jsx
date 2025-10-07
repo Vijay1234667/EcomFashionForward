@@ -17,10 +17,10 @@ const AboutTeamCard = ({MemberImg, MemberName, MemberDesignation, MemberEmail}) 
                         <a href="/" className='text-decoration-none '><span><TwitterIcon /></span>{MemberEmail}</a>
                         <div>
                             <ul className="Team-Social-left-icon p-0">
-                                <li><FacebookOutlinedIcon /></li>
-                                <li><TwitterIcon /></li>
-                                <li><LinkedInIcon /></li>
-                                <li><InstagramIcon /></li>
+                                <li><FacebookOutlinedIcon/></li>
+                                <li><TwitterIcon/></li>
+                                <li><LinkedInIcon/></li>
+                                <li><InstagramIcon/></li>
                             </ul>
                         </div>
                     </div>

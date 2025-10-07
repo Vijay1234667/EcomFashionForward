@@ -15,7 +15,7 @@ const SingleProduct = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [currentImg, setCurrentImg] = useState('');
 
-  const { getSingleProduct, singleProduct, handleCart } = useProductContext();
+const { getSingleProduct, singleProduct, handleCart, base_url, public_url } = useProductContext();
   const { id } = useParams();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const SingleProduct = () => {
   useEffect(() => {
     if (singleProduct[0]) {
       const mainImg = singleProduct[0].image;
-      setCurrentImg('http://localhost:3001/' + mainImg);
+    setCurrentImg(`${base_url}${public_url}/${mainImg}`);
       setTotalPrice(singleProduct[0].ProductPrice);
     }
   }, [singleProduct]);
@@ -81,49 +81,69 @@ const SingleProduct = () => {
     <>
       <BreadcrumbFixedTop Title={singleProduct[0]?.ProductName} />
       <Container fluid className='p-0'>
-        <section className='add-to-bag-main-page padding-all'>
-          <div className='container'>
-            <div className='row justify-content-center flex-wrap'>
-              <Col md={7} xl={6} lg={6} xs={12}>
-                <div className='border rounded shadow-sm p-3 bg-white'>
-                  <img
-                    className='img-fluid rounded mb-3'
-                    src={currentImg}
-                    alt='product'
-                  />
+   <section className="add-to-bag-main-page py-5">
+  <div className="container">
+    <div className="row justify-content-center align-items-center">
+      
+      {/* Product Image */}
+      <Col md={6} xs={12}>
+        <div className=" text-center p-3">
+          <img
+            className="img-fluid rounded-3 product-preview"
+            src={currentImg}
+            alt={singleProduct[0]?.ProductName}
+            style={{ maxHeight: "380px", objectFit: "contain" }}
+          />
+        </div>
+      </Col>
 
-                  <div>
-                    <h4 className='fw-bold mb-1'>{singleProduct[0]?.ProductName}</h4>
-                    <h6 className='text-muted mb-3'>{singleProduct[0]?.ProductInfo1}</h6>
+      {/* Product Details */}
+      <Col md={6} xs={12}>
+        <div className="bg-white rounded-4 shadow-sm p-3">
+          {/* Title & Info */}
+          <h3 className="fw-bold text-dark mb-2">
+            {singleProduct[0]?.ProductName}
+          </h3>
+          <p className="text-muted small mb-3">
+            {singleProduct[0]?.ProductInfo1}
+          </p>
 
-                    <div className='Product-Category d-flex align-items-baseline mb-2'>
-                      <h6 className='me-2 mb-0'>Category:</h6>
-                      <p className='mb-0'>{singleProduct[0]?.category}</p>
-                    </div>
-
-                    <div className='mb-2 d-flex align-items-center justify-content-between'>
-                      <h5 className='mb-0 fs-3 text-success'  >
-                        <span className=''>&#8377;</span>{totalPrice}
-                      </h5>
-                      <Link
-                        className='btn btn-dark btn-lg  px-4'
-                        onClick={() => {
-                          handleCart(singleProduct, quantity, totalPrice);
-                          addToMongoDB(singleProduct, quantity);
-                        }}
-                        to='/cartsingleproduct'
-                      >
-                        <AddShoppingCartIcon className='me-2' />
-                        Add To Cart
-                      </Link>
-
-                    </div>
-                  </div>
-                </div>
-              </Col>
-            </div>
+          {/* Category */}
+          <div className="mb-3">
+            <h6 className="text-secondary mb-1">Category</h6>
+            <span 
+              className="badge bg-light text-dark px-3 py-2 rounded-pill text-nowrap"
+              style={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis" }}
+            >
+              {singleProduct[0]?.category}
+            </span>
           </div>
-        </section>
+
+          {/* Price & Add to Cart */}
+          <div className="d-flex align-items-center justify-content-between mb-4">
+            <h3 className="text-success fw-bold mb-0">
+              ₹{totalPrice}
+            </h3>
+          </div>
+
+          <Link
+            className="btn btn-dark w-100 py-3 rounded-3 fw-semibold d-flex justify-content-center align-items-center gap-2"
+            onClick={() => {
+              handleCart(singleProduct, quantity, totalPrice);
+              addToMongoDB(singleProduct, quantity);
+            }}
+            to="/cartsingleproduct"
+          >
+            <AddShoppingCartIcon />
+            Add To Cart
+          </Link>
+        </div>
+      </Col>
+    </div>
+  </div>
+</section>
+
+
       </Container>
     </>
   );

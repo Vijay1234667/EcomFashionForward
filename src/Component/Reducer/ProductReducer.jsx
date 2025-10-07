@@ -57,7 +57,6 @@ const ProductReducer = (state, action) => {
                 totalPrice: totalPrice,
             };
 
-
         case "FILTER_BY_CATEGORY":
             const filteredProducts = state.products.filter(
                 (product) => product.category === action.payload
@@ -70,41 +69,37 @@ const ProductReducer = (state, action) => {
             };
 
 
-            case "SET_LOADING":
-                return {
-                    ...state,
-                    isLoading: true,
-                };
+        case "SET_LOADING":
+            return {
+                ...state,
+                isLoading: true,
+            };
 
+        case "SET_SELLER_LOADING":
+            return {
+                ...state,
+                isLoading: true,
+            };
 
-         
+        case "SET_BESTSELLING_DATA":
+            const bestSellerItems = action.payload.filter((curElem) => {
+                return curElem.bestselleritem === "true";
+            });
 
+            return {
+                ...state,
+                isLoading: false,
+                products: action.payload,
+                bestSellingProduct: bestSellerItems,
+            };
 
-                case "SET_SELLER_LOADING":
-                    return {
-                        ...state,
-                        isLoading: true,
-                    };
-        
-                case "SET_BESTSELLING_DATA":
-                    const bestSellerItems = action.payload.filter((curElem) => {
-                        return curElem.bestselleritem === "true";
-                    });
-        
-                    return {
-                        ...state,
-                        isLoading: false,
-                        products: action.payload,
-                        bestSellingProduct: bestSellerItems,
-                    };
-        
-                case "API_SELLER_ERROR":
-                    return {
-                        ...state,
-                        isLoading: false,
-                        isError: true,
-                    };
-        
+        case "API_SELLER_ERROR":
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+            };
+
 
 
 

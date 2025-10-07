@@ -4,7 +4,7 @@ import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Typed from "typed.js";
 import { NavLink } from "react-router-dom";
-
+import '../Component/css/style.css';
 
 const HeaderTopNav = () => {
     useEffect(() => {
@@ -19,25 +19,21 @@ const HeaderTopNav = () => {
     }, []);
 
     return (
-        <section className="header-top-nav d-none d-md-block py-2">
+        <section className="header-top-nav bg-white d-none d-md-block ">
             <Container>
                 <div className="d-flex align-items-center justify-content-between">
-                    <span className="fw-bold text-muted font-14">🌎 10M+ Happy Customers</span>
+                    <span className="fw-bold">🌎10M+ Happy Customers</span>
                     <span className="fw-semibold d-md-none d-lg-block">
-                        Introductory Offer: <strong className="text-danger font-14">20% Off</strong> {" "}
+                        Introductory Offer <span className="text-danger font-14">20% Off</span> {" "}
                         <span className="auto-type-text text-primary"></span>
                     </span>
 
-                    <div className="d-flex align-items-center gap-2 ">
-                        <NavLink to="/" className=" font-12 text-dark">
-                            <ShoppingCartRoundedIcon /> Cart
+                    <div className="d-flex align-items-center gap-3">
+                        <NavLink to="/" className=" font-13 fw-500 text-dark">
+                            <ShoppingCartRoundedIcon className='fs-5' /> Cart
                         </NavLink>
-                        <NavLink to="/" className=" font-12 text-dark">
-                            <FavoriteBorderIcon /> Wishlist
-                        </NavLink>
-
-                        <NavLink to="/" className="font-12 glow-button">
-                            20% OFF
+                        <NavLink to="/" className=" font-13 fw-500 text-dark">
+                            <FavoriteBorderIcon className='fs-5' /> Wishlist
                         </NavLink>
                     </div>
                 </div>

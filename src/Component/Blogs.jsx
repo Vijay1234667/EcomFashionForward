@@ -58,16 +58,16 @@ function BlogPage() {
 
                                 <div className="mb-0 md-mb-3 keepintouch">
                                     <div className=' latest-post'>
-                                        <h4>KEEP IN TOUCH</h4>
+                                        <h5 className=''>KEEP IN TOUCH</h5>
                                         <span></span>
                                     </div>
                                     <div className='d-flex'>
                                         <ul className='p-0'>
-                                            <li className='font-weight-500 font-size-14 text-uppercase mb-2'>
-                                                <FacebookIcon className='me-2 text-primary fs-4' />FACEBOOK
+                                            <li className='font-weight-500 text-uppercase mb-2'>
+                                                <FacebookIcon className='me-2 text-primary  fs-5' />FACEBOOK
                                             </li>
-                                           <li className='font-weight-500 font-size-14 text-uppercase mb-2'>
-                                                <InstagramIcon className='me-2 text-danger fs-4' />INSTAGRAM
+                                           <li className='font-weight-600 text-uppercase mb-2'>
+                                                <InstagramIcon className='me-2 text-danger fs-5' />INSTAGRAM
                                             </li>
                                            <li className='font-weight-500 font-size-14 text-uppercase mb-2'>
                                                 <YouTubeIcon className='me-2 text-danger fs-4' />YOUTUBE
@@ -75,13 +75,13 @@ function BlogPage() {
                                         </ul>
                                         <ul>
                                        <li className='font-weight-500 font-size-14 text-uppercase mb-2'>
-                                                <TwitterIcon className='me-2 text-success rounded fs-4' />Twitter
+                                                <TwitterIcon className='me-2 text-success rounded fs-5' />Twitter
                                             </li>
                                            <li className='font-weight-500 font-size-14 text-uppercase mb-2'>
-                                                <LinkedInIcon className='me-2 text-info fs-4' />LinkedIn
+                                                <LinkedInIcon className='me-2 text-info fs-5' />LinkedIn
                                             </li>
                                            <li className='font-weight-500 font-size-14 text-uppercase mb-2'>
-                                                <EmailIcon className='me-2 text-Success fs-4' />EMAIL
+                                                <EmailIcon className='me-2 text-Success fs-5' />EMAIL
                                             </li>
                                         </ul>
                                     </div>
@@ -97,7 +97,7 @@ function BlogPage() {
                                         <span></span>
                                     </div>
                                     <ul className="p-0 mb-0">
-                                        <li><a className="bg-orange-same-btn text-decoration-none" href="/">T-SHIRT</a></li>
+                                        <li className='mb-3'><a className="bg-orange-same-btn text-decoration-none" href="/">T-SHIRT</a></li>
                                         <li><a className="bg-orange-same-btn text-decoration-none" href="/">SHIRT</a></li>
                                         <li><NavLink className="bg-orange-same-btn text-decoration-none" onClick={() => handleCategoryFilter("Men")} to="/CategorySingle">MEN WEAR</NavLink></li>
                                         <li><NavLink className="bg-orange-same-btn text-decoration-none" onClick={() => handleCategoryFilter("Women")} to="/CategorySingle">WOMEN WEAR</NavLink></li>

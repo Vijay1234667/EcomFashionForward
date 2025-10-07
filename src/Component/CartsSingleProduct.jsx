@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useProductContext } from './Context/ProductContext';
-import BreadcrumbFixedTop from './BreadcrumbFixedTop';
-import { NavLink } from 'react-router-dom';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import React, { useEffect } from "react";
+import { useProductContext } from "./Context/ProductContext";
+import BreadcrumbFixedTop from "./BreadcrumbFixedTop";
+import { NavLink } from "react-router-dom";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const CartsSingleProduct = () => {
   const {
@@ -21,9 +21,9 @@ const CartsSingleProduct = () => {
 
   useEffect(() => {
     if (singleProduct.length > 0) {
-      const existingProducts = JSON.parse(localStorage.getItem('carts')) || [];
+      const existingProducts = JSON.parse(localStorage.getItem("carts")) || [];
       const productExists = existingProducts.some(
-        product => product.id === singleProduct[0].id
+        (product) => product.id === singleProduct[0].id
       );
 
       if (!productExists) {
@@ -31,10 +31,10 @@ const CartsSingleProduct = () => {
         const updatedProducts = [...existingProducts, newProduct];
 
         setCarts(updatedProducts);
-        localStorage.setItem('carts', JSON.stringify(updatedProducts));
+        localStorage.setItem("carts", JSON.stringify(updatedProducts));
 
-        setTotalPrice(prevPrice => prevPrice + singleProduct[0].ProductPrice);
-        setTotalItems(prevItems => prevItems + 1);
+        setTotalPrice((prevPrice) => prevPrice + singleProduct[0].ProductPrice);
+        setTotalItems((prevItems) => prevItems + 1);
       }
     }
   }, [singleProduct]);
@@ -56,14 +56,13 @@ const CartsSingleProduct = () => {
     <>
       <BreadcrumbFixedTop Title="Carts" Subtitle="Carts" />
 
-      <section className="main-top-cart-delivery-section py-4">
+      <section className="main-top-cart-delivery-section">
         <div className="container">
-          <div className="table-responsive bg-white p-3 rounded shadow-sm">
-            <table className="table align-middle text-center">
-              <thead className="table-dark">
+           <table className="table  text-center mb-0">
+              <thead>
                 <tr>
                   <th>#</th>
-                  <th>Product Name</th>
+                  <th>Product</th>
                   <th>Category</th>
                   <th>Price</th>
                   <th>Quantity</th>
@@ -73,25 +72,29 @@ const CartsSingleProduct = () => {
               </thead>
               <tbody>
                 {groupedItems.map((c, key) => (
-                  <tr key={key}>
-                    <td>{key + 1}</td>
-                    <td className="text-capitalize fw-semibold">{c.ProductName}</td>
-                    <td>{c.category}</td>
+                  <tr key={key} className="cart-row">
+                    <td className=" text-secondary">{key + 1}</td>
+                    <td className=" text-capitalize">{c.ProductName}</td>
                     <td>
+                      <span className="badge bg-light text-dark px-3 py-2 rounded-pill">
+                        {c.category}
+                      </span>
+                    </td>
+                    <td className="text-mu">
                       <CurrencyRupeeIcon fontSize="small" />
                       {c.ProductPrice}
                     </td>
                     <td>
                       <div className="d-flex align-items-center justify-content-center">
                         <button
-                          className="btn btn-outline-primary btn-sm me-2"
+                          className="btn btn-sm btn-light border rounded-circle me-2 quantity-btn"
                           onClick={() => handleDecrement(key)}
                         >
-                          -
+                          –
                         </button>
-                        <span>{c.quantity}</span>
+                        <span className="fw-semibold">{c.quantity}</span>
                         <button
-                          className="btn btn-outline-primary btn-sm ms-2"
+                          className="btn btn-sm btn-light border rounded-circle ms-2 quantity-btn"
                           onClick={() => handleIncrement(key)}
                         >
                           +
@@ -104,51 +107,56 @@ const CartsSingleProduct = () => {
                     </td>
                     <td>
                       <button
-                        className="btn btn-sm btn-danger"
+                        className="btn btn-sm btn-danger "
                         onClick={() => handleRemoveItem(key)}
                       >
-                        <DeleteForeverIcon />
+                        <DeleteForeverIcon fontSize="small" />
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
         </div>
       </section>
 
       <div className="payment-summary-section mt-4">
         <div className="container">
           <div className="row">
-            <div className="col-lg-8 mx-auto">
-              <div className="shadow-md p-4 payment-summary-body mb-4 bg-white rounded border">
-                <h5 className="paysum-head mb-3">Payment Summary</h5>
-                <table className="table">
+            <div className="col-lg-8 col-md-8 mx-auto">
+              <div className="payment-summary-body bg-white rounded-4  border p-4">
+                <h4 className="fw-bold mb-4 text-dark text-center">
+                  Payment Summary
+                </h4>
+
+                <table className="table table-bordered mb-4">
                   <tbody>
                     <tr>
-                      <td>Total Items</td>
-                      <td>{totalItems}</td>
+                      <td className="text-muted">Total Items</td>
+                      <td className="fw-semibold text-end">{totalItems}</td>
                     </tr>
                     <tr>
-                      <td>Delivery Charges</td>
-                      <td className="text-success fw-medium">Free Delivery</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h5 className="fw-bold">Total Amount</h5>
+                      <td className="text-muted">Delivery Charges</td>
+                      <td className="text-success fw-semibold text-end">
+                        Free Delivery
                       </td>
-                      <td className="text-danger fw-bold">
-                        <CurrencyRupeeIcon />
+                    </tr>
+                    <tr className="border-top">
+                      <td>
+                        <h5 className="fw-bold mb-0">Total Amount</h5>
+                      </td>
+                      <td className="text-danger fw-bold text-end fs-5">
+                        <CurrencyRupeeIcon fontSize="small" />
                         {totalPrice}
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <div className="text-center place-order-btn">
+
+                <div className="text-center">
                   <NavLink to="/paymentform">
-                    <button className="btn btn-dark btn-lg px-4 mt-2">
-                      Continue
+                    <button className="btn btn-dark w-100 py-3 rounded-3 fw-semibold">
+                      Continue to Payment
                     </button>
                   </NavLink>
                 </div>

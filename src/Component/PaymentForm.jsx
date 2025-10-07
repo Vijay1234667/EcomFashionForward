@@ -1,259 +1,291 @@
-import React, { useState } from 'react';
-import { Container, Spinner, Alert, Row, Col } from 'react-bootstrap-v5';
-import { useProductContext } from './Context/ProductContext';
-
+import React, { useState } from "react";
+import { Container, Spinner, Alert, Row, Col } from "react-bootstrap-v5";
+import { useProductContext } from "./Context/ProductContext";
 import {
-    Wallet,
-    DeliveryDining,
-    AccountBalance,
-    Paid,
-} from '@mui/icons-material';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-import CategeoriesItem1 from './assets/CategeoriesItem1.jpg';
-import CategeoriesItem3 from './assets/CategeoriesItem3.webp';
-import CategeoriesItem4 from './assets/CategeoriesItem4.png';
-import HomeNewslaterSection from './HomeNewslaterSection';
+  Wallet,
+  DeliveryDining,
+  AccountBalance,
+  Paid,
+} from "@mui/icons-material";
 
 const PaymentFormPage = () => {
-    const { totalItems, totalPrice } = useProductContext();
+  const { totalItems, totalPrice } = useProductContext();
 
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        cardNumber: '',
-        expiry: '',
-        cvv: '',
-        zip: '',
-        state: '',
-        country: '',
-        address: '',
-        city: '',
-        landmark: '',
-    });
+  const [step, setStep] = useState(1); 
+  const [loading, setLoading] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
+  const [selectedMethod, setSelectedMethod] = useState("");
+  const [orderId, setOrderId] = useState(null);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
+    zip: "",
+    state: "",
+    country: "",
+    address: "",
+    city: "",
+    landmark: "",
+  });
 
-    const [loading, setLoading] = useState(false);
-    const [paymentSuccess, setPaymentSuccess] = useState(false);
-    const [paymentError, setPaymentError] = useState('');
-    const [selectedMethod, setSelectedMethod] = useState('');
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const handleMethodSelect = (methodName) => {
-        setSelectedMethod(methodName);
-    };
+  const paymentMethods = [
+    { icon: <DeliveryDining />, name: "Cash on Delivery" },
+    { icon: <Wallet />, name: "Wallets" },
+    { icon: <AccountBalance />, name: "Net Banking" },
+    { icon: <Paid />, name: "PayPal" },
+  ];
 
-    const handlePaymentSubmit = async (e) => {
-        e.preventDefault();
+  const handleNextStep = () => {
+    if (step === 1 && !selectedMethod) {
+      setPaymentError("Please select a payment method.");
+      return;
+    }
+    if (step === 2 && (!formData.address || !formData.city)) {
+      setPaymentError("Please complete your delivery address.");
+      return;
+    }
+    if (
+      step === 3 &&
+      selectedMethod !== "Cash on Delivery" &&
+      (!formData.cardNumber ||
+        formData.cardNumber.length < 12 ||
+        !formData.expiry ||
+        !formData.cvv)
+    ) {
+      setPaymentError("Please enter valid card details.");
+      return;
+    }
+    setPaymentError("");
+    setStep(step + 1);
+  };
 
-        if (!selectedMethod) {
-            setPaymentError('Please select a payment method.');
-            return;
-        }
+  const handleBackStep = () => {
+    if (step > 1) {
+      setStep(step - 1);
+      setPaymentError("");
+    }
+  };
 
-        if (!formData.cardNumber || formData.cardNumber.length < 12) {
-            setPaymentError('Invalid card number.');
-            return;
-        }
+  const handlePaymentSubmit = async () => {
+    setLoading(true);
+    setPaymentError("");
+    try {
+      await new Promise((res) => setTimeout(res, 2000));
+      const success = Math.random() > 0.2;
+      if (success) {
+        setOrderId(Math.floor(100000 + Math.random() * 900000));
+        setStep(4);
+      } else {
+        setPaymentError("Payment failed. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        if (!formData.address || !formData.city) {
-            setPaymentError('Please complete the address section.');
-            return;
-        }
+  return (
+    <section className="payment-integration-section py-5">
+      <Container>
+        <Row className="justify-content-center">
+          <Col lg={12} md={10} sm={12}>
+            <div className="bg-white p-4 rounded shadow-sm">
+              {/* Step Indicators */}
+              <div className="d-flex justify-content-between mb-4">
+                {["Method", "Address", "Payment", "Done"].map((s, i) => (
+                  <div
+                    key={i}
+                    className={`fw-semibold ${
+                      step === i + 1 ? "text-dark" : "text-muted"
+                    }`}
+                  >
+                    {i + 1}. {s}
+                  </div>
+                ))}
+              </div>
 
-        setLoading(true);
-        setPaymentError('');
-        setPaymentSuccess(false);
+              {/* Step 1 - Payment Method */}
+              {step === 1 && (
+                <>
+                  <h5 className="mb-3">Choose Payment Method</h5>
+                  {paymentMethods.map((method, index) => (
+                    <div
+                      key={index}
+                      className={`mb-2 p-3 rounded border d-flex align-items-center cursor-pointer ${
+                        selectedMethod === method.name
+                          ? "bg-dark text-white"
+                          : "bg-light"
+                      }`}
+                      onClick={() => setSelectedMethod(method.name)}
+                    >
+                      {method.icon}
+                      <span className="ms-2">{method.name}</span>
+                    </div>
+                  ))}
 
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+                  <div className="d-flex justify-content-end mt-3">
+                    <button className="btn btn-dark" onClick={handleNextStep}>
+                      Continue
+                    </button>
+                  </div>
+                </>
+              )}
 
-            const isSuccess = Math.random() > 0.2;
+              {/* Step 2 - Address */}
+              {step === 2 && (
+                <>
+                  <h5 className="mb-3">Delivery Address</h5>
+                  <input
+                    type="text"
+                    name="address"
+                    className="form-control mb-3"
+                    placeholder="123 Street"
+                    value={formData.address}
+                    onChange={handleChange}
+                  />
+                  <div className="d-flex gap-2 mb-3">
+                    <input
+                      type="text"
+                      name="city"
+                      className="form-control"
+                      placeholder="City"
+                      value={formData.city}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      name="landmark"
+                      className="form-control"
+                      placeholder="Landmark"
+                      value={formData.landmark}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-            if (isSuccess) {
-                setPaymentSuccess(true);
-                setFormData({
-                    name: '',
-                    email: '',
-                    cardNumber: '',
-                    expiry: '',
-                    cvv: '',
-                    zip: '',
-                    state: '',
-                    country: '',
-                    address: '',
-                    city: '',
-                    landmark: '',
-                });
-                setSelectedMethod('');
-            } else {
-                setPaymentError('Payment failed. Please try again.');
-            }
-        } catch (err) {
-            setPaymentError('Something went wrong!');
-        } finally {
-            setLoading(false);
-        }
-    };
+                  <div className="d-flex justify-content-between mt-3">
+                    <button
+                      className="btn btn-outline-secondary"
+                      onClick={handleBackStep}
+                    >
+                      Back
+                    </button>
+                    <button className="btn btn-dark" onClick={handleNextStep}>
+                      Continue
+                    </button>
+                  </div>
+                </>
+              )}
 
-    const paymentMethods = [
-        { icon: <DeliveryDining />, name: 'Cash on Delivery' },
-        { icon: <Wallet />, name: 'Wallets' },
-        { icon: <AccountBalance />, name: 'Net Banking' },
-        { icon: <Paid />, name: 'PayPal' },
-    ];
+              {/* Step 3 - Payment */}
+              {step === 3 && (
+                <>
+                  <h5 className="mb-3">Payment Details</h5>
+                  {paymentError && (
+                    <Alert variant="danger">{paymentError}</Alert>
+                  )}
 
-    return (
-        <>
-            <section className="payment-integration-section py-5">
-                <Container>
-                    <Row className="g-4">
-                        <Col lg={6}>
-                            <div className="bg-white p-4 rounded shadow-sm h-100">
-                                <h5 className="mb-3">Choose Payment Method</h5>
-                                {paymentMethods.map((method, index) => (
-                                    <div
-                                        key={index}
-                                        className={`mb-2 p-2 rounded border d-flex align-items-center cursor-pointer ${selectedMethod === method.name ? 'bg-dark text-white' : 'bg-light'}`}
-                                        onClick={() => handleMethodSelect(method.name)}
-                                    >
-                                        {method.icon}
-                                        <span className="ms-2">{method.name}</span>
-                                    </div>
-                                ))}
+                  {selectedMethod === "Cash on Delivery" ? (
+                    <p className="text-success">
+                      ✅ Cash on Delivery selected. Pay when order arrives.
+                    </p>
+                  ) : (
+                    <>
+                      <input
+                        type="text"
+                        name="cardNumber"
+                        className="form-control mb-3"
+                        placeholder="Card Number"
+                        value={formData.cardNumber}
+                        onChange={handleChange}
+                      />
+                      <div className="d-flex gap-2 mb-3">
+                        <input
+                          type="text"
+                          name="expiry"
+                          className="form-control"
+                          placeholder="MM/YY"
+                          value={formData.expiry}
+                          onChange={handleChange}
+                        />
+                        <input
+                          type="password"
+                          name="cvv"
+                          className="form-control"
+                          placeholder="CVV"
+                          value={formData.cvv}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </>
+                  )}
 
-                                <Swiper
-                                    modules={[Navigation, Pagination]}
-                                    spaceBetween={30}
-                                    slidesPerView={1}
-                                    navigation
-                                    pagination={{ clickable: true }}
-                                    className="mt-4"
-                                >
-                                    {[CategeoriesItem1, CategeoriesItem3, CategeoriesItem4].map((img, i) => (
-                                        <SwiperSlide key={i}>
-                                            <img src={img} alt={`slide-${i}`} className="img-fluid rounded" />
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
+                  <div className="d-flex justify-content-between mt-3">
+                    <button
+                      className="btn btn-outline-secondary"
+                      onClick={handleBackStep}
+                      disabled={loading}
+                    >
+                      Back
+                    </button>
+                    <button
+                      className="btn btn-dark"
+                      onClick={handlePaymentSubmit}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <>
+                          <Spinner
+                            animation="border"
+                            size="sm"
+                            className="me-2"
+                          />
+                          Processing...
+                        </>
+                      ) : (
+                        <>Pay ₹{totalPrice}</>
+                      )}
+                    </button>
+                  </div>
+                </>
+              )}
 
-                                <h5 className="mt-4 mb-3">Delivery Address</h5>
-                                <form>
-                                    <div className="mb-3">
-                                        <label>Full Address</label>
-                                        <input
-                                            type="text"
-                                            name="address"
-                                            className="form-control"
-                                            value={formData.address}
-                                            onChange={handleChange}
-                                            placeholder="123 Street, City"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="d-flex gap-2 mb-3">
-                                        <input
-                                            type="text"
-                                            name="city"
-                                            className="form-control"
-                                            placeholder="City"
-                                            value={formData.city}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                        <input
-                                            type="text"
-                                            name="landmark"
-                                            className="form-control"
-                                            placeholder="Landmark (Optional)"
-                                            value={formData.landmark}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                </form>
-                            </div>
-                        </Col>
+              {/* Step 4 - Done */}
+              {step === 4 && (
+                <div className="text-center py-5">
+                  <h3 className="text-success mb-3">🎉 Payment Successful!</h3>
+                  <p>
+                    Your order ID: <strong>#{orderId}</strong>
+                  </p>
+                  <p className="text-muted">Estimated delivery in 4-6 days</p>
 
-                        <Col lg={6}>
-                            <div className="bg-white p-4 rounded shadow-sm h-100">
-                                <h4 className="mb-3">Payment Details</h4>
-                                {paymentError && <Alert variant="danger">{paymentError}</Alert>}
-                                {paymentSuccess && <Alert variant="success">🎉 Payment successful!</Alert>}
+                  <div className="d-flex justify-content-center gap-3 mt-3">
+                    <button
+                      className="btn btn-outline-secondary"
+                      onClick={() => setStep(3)}
+                    >
+                      Back
+                    </button>
+                    <button className="btn btn-dark">Back to Home</button>
+                  </div>
+                </div>
+              )}
 
-                                <form onSubmit={handlePaymentSubmit}>
-                                    <div className="mb-3">
-                                        <label>Cardholder Name</label>
-                                        <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label>Email Address</label>
-                                        <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label>Card Number</label>
-                                        <input type="text" name="cardNumber" className="form-control" value={formData.cardNumber} onChange={handleChange} required />
-                                    </div>
-                                    <div className="d-flex gap-2 mb-3">
-                                        <input type="text" name="expiry" className="form-control" placeholder="MM/YY" value={formData.expiry} onChange={handleChange} required />
-                                        <input type="password" name="cvv" className="form-control" placeholder="CVV" maxLength={3} value={formData.cvv} onChange={handleChange} required />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label>Country</label>
-                                        <select name="country" className="form-select" value={formData.country} onChange={handleChange} required>
-                                            <option value="">Select Country</option>
-                                            <option value="India">India</option>
-                                            <option value="USA">USA</option>
-                                            <option value="Australia">Australia</option>
-                                        </select>
-                                    </div>
-                                    <div className="d-flex gap-2 mb-4">
-                                        <input type="text" name="zip" className="form-control" placeholder="ZIP" value={formData.zip} onChange={handleChange} required />
-                                        <input type="text" name="state" className="form-control" placeholder="State" value={formData.state} onChange={handleChange} required />
-                                    </div>
-
-                                    <h6 className="text-success mb-3">You Will Save ₹200 on this order</h6>
-                                    <table className="table text-center">
-                                        <thead>
-                                            <tr>
-                                                <th>Qty</th>
-                                                <th>Total</th>
-                                                <th>Delivery</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{totalItems}</td>
-                                                <td className="text-danger fw-bold">₹{totalPrice}</td>
-                                                <td className="text-success">FREE</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <button type="submit" className="btn btn-dark w-100" disabled={loading}>
-                                        {loading ? (
-                                            <>
-                                                <Spinner animation="border" size="sm" className="me-2" /> Processing...
-                                            </>
-                                        ) : (
-                                            <>Pay ₹{totalPrice}</>
-                                        )}
-                                    </button>
-                                </form>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-            <HomeNewslaterSection />
-        </>
-    );
+              {paymentError && step !== 4 && (
+                <Alert variant="danger" className="mt-3">
+                  {paymentError}
+                </Alert>
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+  );
 };
 
 export default PaymentFormPage;

@@ -74,7 +74,7 @@ const ContactUsPage = () => {
                         <div className="col-lg-6 col-md-6 col-12 mb-4">
                             <form action='https://formspree.io/f/xdoqjkpj' method='POST'>
                                 <div className="form-group row">
-                                    <label for="name" className="col-lg-12 col-form-label " >Full Name</label>
+                                    <label for="name" className="col-lg-12 col-form-label" >Full Name</label>
                                     <div className=" mb-2">
                                         <input className="box" type="text" name="name" id="name" placeholder="Enter Your Name"
                                             required /><br />
@@ -99,7 +99,7 @@ const ContactUsPage = () => {
 
                                 <div className="form-group row">
                                     <div className="contact-us-submit-btn">
-                                        <input type="submit" id="submitDetails" className="btn same-transparent-lg-btn" autoCapitalize='off' name="submitDetails"
+                                        <input type="submit" id="submitDetails" className="btn bg-black text-white" autoCapitalize='off' name="submitDetails"
                                             value="Send Message" /><br />
                                     </div>
                                 </div>
